@@ -67,7 +67,7 @@ while True:
                     students.remove(name)
                     print(students)
                     time = datetime.now()
-                    current_time = time.strftime("%H-%M-%S")
+                    current_time = time.strftime("%H:%M:%S")
                     lnwriter.writerow([name,current_time])
 
     cv2.imshow("Attendance System", frame)
