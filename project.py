@@ -2,7 +2,6 @@ import face_recognition
 import cv2
 import numpy
 import csv
-import os
 from datetime import datetime
 
 video_capture = cv2.VideoCapture(0)
