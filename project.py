@@ -2,35 +2,38 @@ import face_recognition
 import cv2
 import numpy
 import csv
+import os
 from datetime import datetime
+from list import known_face_encodings
+from list import known_faces_name
 
 video_capture = cv2.VideoCapture(0)
 
-asian_man_img = face_recognition.load_image_file("photos/asian_man_1.jpg")
-asian_man_encoding = face_recognition.face_encodings(asian_man_img)[0]
+# asian_man_img = face_recognition.load_image_file("photos/asian_man.jpg")
+# asian_man_encoding = face_recognition.face_encodings(asian_man_img)[0]
 
-black_man_img = face_recognition.load_image_file("photos/black_man_1.jpg")
-black_man_encoding = face_recognition.face_encodings(black_man_img)[0]
+# black_man_img = face_recognition.load_image_file("photos/black_man.jpg")
+# black_man_encoding = face_recognition.face_encodings(black_man_img)[0]
 
-chris_img = face_recognition.load_image_file("photos/chris_hemsworth.jpg")
-chris_encoding = face_recognition.face_encodings(chris_img)[0]
+# chris_img = face_recognition.load_image_file("photos/chris_hemsworth.jpg")
+# chris_encoding = face_recognition.face_encodings(chris_img)[0]
 
-chirayu_img = face_recognition.load_image_file("photos/chirayu.jpg")
-chirayu_encoding = face_recognition.face_encodings(chirayu_img)[0]
+# chirayu_img = face_recognition.load_image_file("photos/chirayu.jpg")
+# chirayu_encoding = face_recognition.face_encodings(chirayu_img)[0]
 
-known_face_encodings = [
-    asian_man_encoding,
-    black_man_encoding,
-    chris_encoding,
-    chirayu_encoding
-]
+# known_face_encodings = [
+#     asian_man_encoding,
+#     black_man_encoding,
+#     chris_encoding,
+#     chirayu_encoding
+# ]
 
-known_faces_name = [
-    "Asian Guy",
-    "Black Guy",
-    "Chris Hemsworth",
-    "Chirayu Shah"
-]
+# known_faces_name = [
+#     "Asian Guy",
+#     "Black Guy",
+#     "Chris Hemsworth",
+#     "Chirayu Shah"
+# ]
 
 students = known_faces_name.copy()
 
