@@ -4,38 +4,29 @@ import numpy
 import csv
 import os
 from datetime import datetime
-from list import known_face_encodings
-from list import known_faces_name
+# from list import known_face_encodings
+# from list import known_faces_name
 
 video_capture = cv2.VideoCapture(0)
 
-# asian_man_img = face_recognition.load_image_file("photos/asian_man.jpg")
-# asian_man_encoding = face_recognition.face_encodings(asian_man_img)[0]
+photos_dir = 'photos/'
+files_in_directory = os.listdir(photos_dir)
 
-# black_man_img = face_recognition.load_image_file("photos/black_man.jpg")
-# black_man_encoding = face_recognition.face_encodings(black_man_img)[0]
+image_files_in_directory = [file for file in files_in_directory if file.endswith(".jpg") or file.endswith(".png")]
 
-# chris_img = face_recognition.load_image_file("photos/chris_hemsworth.jpg")
-# chris_encoding = face_recognition.face_encodings(chris_img)[0]
+face_encoding_dict = []
+face_names = []
 
-# chirayu_img = face_recognition.load_image_file("photos/chirayu.jpg")
-# chirayu_encoding = face_recognition.face_encodings(chirayu_img)[0]
+for img_file in image_files_in_directory:
+    image = face_recognition.load_image_file(os.path.join(photos_dir, img_file))
+    img_encoding = face_recognition.face_encodings(image)
+    if len(img_encoding) == 0:
+        print(f'No faces found in the {img_file}')
+    else:
+        face_encoding_dict.append(img_encoding)
+        face_names.append(img_file)
 
-# known_face_encodings = [
-#     asian_man_encoding,
-#     black_man_encoding,
-#     chris_encoding,
-#     chirayu_encoding
-# ]
-
-# known_faces_name = [
-#     "Asian Guy",
-#     "Black Guy",
-#     "Chris Hemsworth",
-#     "Chirayu Shah"
-# ]
-
-students = known_faces_name.copy()
+students = face_names.copy()
 
 face_locations = []
 face_encodings = []
@@ -56,16 +47,16 @@ while True:
         face_locations = face_recognition.face_locations(rgb_small_frame)
         face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
         face_names = []
-        for face_encoding in face_encodings:
-            matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
+        for img_encoding in face_encodings:
+            matches = face_recognition.compare_faces(face_encoding_dict, img_encoding)
             name = ""
-            face_distance = face_recognition.face_distance(known_face_encodings, face_encoding)
+            face_distance = face_recognition.face_distance(face_encoding_dict, img_encoding)
             best_match_index = numpy.argmin(face_distance)
             if matches[best_match_index]:
-                name = known_faces_name[best_match_index]
+                name = face_names[best_match_index]
 
             face_names.append(name)
-            if name in known_faces_name:
+            if name in face_names:
                 if name in students:
                     students.remove(name)
                     print(students)
